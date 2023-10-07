@@ -21,6 +21,12 @@ We use standard Machine Learning / Computer Vision python packages. In case any 
 - Tqdm: $pip installl tqdm
 - Pickle: $pip install pickle5
 
+They all can be installed with:
+```console
+$pip install -r requirements.txt
+```
+Regarding the Python version, Python >= 3.8 is needed.
+
 ## Running the code
 Since the code is in _.ipynb_ format, it is required to have _Jupyter Notebook_ or any other program/text editor that can run this kind of file. We recommend using Visual Studio Code with the _Jupyter_ extension.
 

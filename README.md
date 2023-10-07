@@ -15,10 +15,11 @@ The code and data should be structured as follows:
 
 ## Requirements
 
-We use standard Machine Learning / Computer Vision python packages. In case any of the packages are missing, we provide the some commands for quick installation:
+We use standard Machine Learning / Computer Vision python packages. In case any of the packages are missing, we provide some commands for quick installation:
 
-- OpenCV / cv2: pip install opencv-python
-- TQDM: pip installl tqdm
+- OpenCV / cv2: $pip install opencv-python
+- Tqdm: $pip installl tqdm
+- Pickle: $pip install pickle5
 
 ## Running the code
 Since the code is in _.ipynb_ format, it is required to have _Jupyter Notebook_ or any other program/text editor that can run this kind of file. We recommend using Visual Studio Code with the _Jupyter_ extension.

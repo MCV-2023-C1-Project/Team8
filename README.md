@@ -4,7 +4,7 @@ This repository serves as the collaborative workspace for Team 8 working on the 
 
 ## Repository Structure
 
-- **Weekly Submissions**: Each week, we upload the code and data generated during that period in distinct folders named `Week_<number>`. In each weekly folder, you will find the source code, datasets and a brief README with instructions to run the code and replicate the results.
+- **Weekly Submissions**: Each week, we upload the code and data generated during that period in distinct folders named `Week <number>`. In each weekly folder, you will find the source code, datasets and a brief README with instructions to run the code and replicate the results.
   
 ## Getting Started
 

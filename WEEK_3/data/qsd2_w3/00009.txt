@@ -1,2 +1,2 @@
 ('Alfred Figueras', 'Port de Barcelona')
-('Alfred Figueras', 'Mercat a la plaça de Manresa')
+('Alfred Figueras', 'Mercat a la plaÃ§a de Manresa')

@@ -4,13 +4,12 @@
 The code and data should be structured as follows:
 
         .
-        ├── C1_w2_team8.ipynb     # Source code
+        ├── C1_w4_team8.ipynb     # Source code
         ├── data                  
         │   ├── BBDD              # Paintings dataset
-        │   ├── qsd1_w3           # Query set 1 for development
-        │   └── qsd2_w3           # Query set 2 for development
-        │   └── qst1_w3           # Query set 1 for test
-        │   └── qst2_w3           # Query set 2 for test
+        │   ├── qsd1_w4           # Query set 1 for development
+        │   └── qst1_w4           # Query set 1 for test
+        │   └── qst2_w4           # Query set 2 for test
         └── ...
 
 ## Requirements

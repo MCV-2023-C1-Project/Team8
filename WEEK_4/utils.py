@@ -152,7 +152,7 @@ def get_text(gray, name_bag, x, y, x_max, y_max):
 # Obtain the closest k DDBB image for query images determined by the similarity function. 
 # The features have been previously calculated from the developed method.
 # It returns a list of lists with the k closest images for each query image. 
-def compare_images(query_features, bbdd_features, k, sim_func, param=None, filter=False, combine=False):
+def compare_images(query_features, bbdd_features, k, sim_func, param=None, filter=False, combine=False, threshold_dist=1e8):
     
     result = []
     for id1,f1 in query_features.items():
@@ -195,10 +195,14 @@ def compare_images(query_features, bbdd_features, k, sim_func, param=None, filte
                 k_smallest = sorted(distances, reverse=False, key=lambda x: x[1])[:k]
             else:
                 k_smallest = sorted(distances, reverse=True, key=lambda x: x[1])[:k]
-            result_i.append((id1, k_smallest))
-            
+
+            if k_smallest[0][1] <  threshold_dist and len(f1) == 1:
+                result_i.append((id1, [[-1]]))
+            else:
+                result_i.append((id1, k_smallest))
+        
         result.append(result_i)
-    
+
     # Transform the result into the required format
     result2 = []
     for x in result:
@@ -209,7 +213,7 @@ def compare_images(query_features, bbdd_features, k, sim_func, param=None, filte
     
     return result2
 
-def compare_keypoints(features_query, features_db, k, sim_func, threshold_matches1=190):    
+def compare_keypoints(features_query, features_db, k, sim_func, threshold_matches=190):    
     bf = cv2.BFMatcher(sim_func, crossCheck=False)
     result = []
     for id_q, f_query in tqdm.tqdm(features_query.items(), desc='Computing matches'):
@@ -229,7 +233,7 @@ def compare_keypoints(features_query, features_db, k, sim_func, threshold_matche
             number_matches = sorted(number_matches, reverse=True, key=lambda x: x[1])[:k]
 
             # If the number of matches is below a certain threshold, we consider that the query image is not in the database
-            if number_matches[0][1] < threshold_matches1 and len(f_query) == 1:
+            if number_matches[0][1] < threshold_matches and len(f_query) == 1:
                 result_i.append((id_q, [[-1]]))
             else:
                 result_i.append((id_q, number_matches))
@@ -245,6 +249,43 @@ def compare_keypoints(features_query, features_db, k, sim_func, threshold_matche
         result2.append(result2_i)
 
     return result2
+
+def calculate_f1_score(retrievals, ground_truths):
+    # Initialize counts
+    TP = 0
+    FP = 0
+    FN = 0
+    
+    for retrieval, truth in zip(retrievals, ground_truths):
+        # If both the retrieval and truth are -1, increment TP
+        if truth == [-1] and retrieval == [[-1]]:
+            TP += 1
+            continue
+        
+        
+        # If the truth is not -1 but retrieval is, it's a false negative
+        if truth != [-1] and retrieval == [[-1]]:
+            FN += 1
+            continue
+
+        # If the truth is -1 but retrieval is not, it's a false positive
+        if truth == [-1] and retrieval != [[-1]]:
+            FP += 1
+            continue
+        
+        # For other cases where truth is not -1
+        for i,sublist in enumerate(retrieval):
+            if truth[i] in sublist:
+                TP += 1
+            else:
+                FP += 1
+    
+    # Calculate precision, recall, and F1 score
+    precision = TP / (TP + FP) if (TP + FP) > 0 else 0
+    recall = TP / (TP + FN) if (TP + FN) > 0 else 0
+    F1 = 2 * (precision * recall) / (precision + recall) if (precision + recall) > 0 else 0
+
+    return F1
 
 # Copied from https://github.com/benhamner/Metrics -> Metrics.Python.ml_metrics.average_precision.py
 def apk(actual, predicted, k=10):

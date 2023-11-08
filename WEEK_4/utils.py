@@ -225,8 +225,8 @@ def compare_keypoints(features_query, features_db, k, sim_func, threshold_matche
                 matches = bf.knnMatch(f, f_db[0], k=2)
 
                 good_matches = []
-                for m, n in matches:
-                    if m.distance < 0.7 * n.distance:
+                for m, n in matches: #first and second match
+                    if m.distance < 0.7 * n.distance: # the first match is at least 30% closer than the second one
                         good_matches.append(m)
                 number_matches.append((id_db, len(good_matches)))
 
@@ -239,7 +239,7 @@ def compare_keypoints(features_query, features_db, k, sim_func, threshold_matche
                 result_i.append((id_q, number_matches))
                 
         result.append(result_i)
-    
+
     # Transform the result into the required format
     result2 = []
     for x in result:

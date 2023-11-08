@@ -7,7 +7,6 @@ import pytesseract
 pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Luis\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
 
 
-
 # Obtain the painting image removing the background. 
 # It returns the mask where 1 means painting image and 0 background.
 def get_mask(gray, threshold_area=65000):

@@ -151,7 +151,7 @@ def get_text(gray, name_bag, x, y, x_max, y_max):
 # Obtain the closest k DDBB image for query images determined by the similarity function. 
 # The features have been previously calculated from the developed method.
 # It returns a list of lists with the k closest images for each query image. 
-def compare_images(query_features, bbdd_features, k, sim_func, param=None, filter=False, combine=False, threshold_dist=1e8):
+def compare_images(query_features, bbdd_features, k, sim_func, param=None, filter=False, combine=False, threshold_dist=0):
     
     result = []
     for id1,f1 in query_features.items():
@@ -195,7 +195,7 @@ def compare_images(query_features, bbdd_features, k, sim_func, param=None, filte
             else:
                 k_smallest = sorted(distances, reverse=True, key=lambda x: x[1])[:k]
 
-            if k_smallest[0][1] <  threshold_dist and len(f1) == 1:
+            if k_smallest[0][1] < threshold_dist and len(f1) == 1:
                 result_i.append((id1, [[-1]]))
             else:
                 result_i.append((id1, k_smallest))

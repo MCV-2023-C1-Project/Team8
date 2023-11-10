@@ -40,11 +40,9 @@ def get_mask(gray, threshold_area=65000):
             areas.append((area, (x,y,w,h)))
             counter += 1
 
-    if img_id == 26:
-        areas = sorted(areas, key=lambda x: x[0], reverse=True)[:2]
-    else:
-        # Sort areas and positions by area
-        areas = sorted(areas, key=lambda x: x[0], reverse=True)[:3]
+
+    # Sort areas and positions by area
+    areas = sorted(areas, key=lambda x: x[0], reverse=True)[:3]
 
     # Draw bounding box on mask
     for i in range(len(areas)-1,-1,-1):
